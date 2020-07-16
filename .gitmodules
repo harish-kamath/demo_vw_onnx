@@ -1,3 +1,6 @@
 [submodule "lib/vw"]
 	path = lib/vw
 	url = https://github.com/VowpalWabbit/vowpal_wabbit
+[submodule "lib/onnxruntime"]
+	path = lib/onnxruntime
+	url = https://github.com/harish-kamath/onnxruntime_vw.git

@@ -5,3 +5,8 @@ set(BUILD_PYTHON OFF CACHE BOOL "")
 set(BUILD_DOCS OFF CACHE BOOL "")
 set(WARNINGS OFF CACHE BOOL "")
 add_subdirectory(vw EXCLUDE_FROM_ALL)
+
+
+execute_process(COMMAND ./${CMAKE_CURRENT_SOURCE_DIR}/onnxruntime/build.sh --config RelWithDebInfo --build_shared_lib --parallel
+WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+RESULT_VARIABLE ORT_COMPILED)

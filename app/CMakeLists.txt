@@ -19,6 +19,7 @@ add_executable(app.out
 )
 
 set_target_properties(app.out PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_target_properties(app.out PROPERTIES OUTPUT_NAME "vw_onnx_csoaa_demo")
 target_include_directories(app.out PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(app.out PUBLIC vw)
 # Consuming Boost uuid requires BCrypt, normally this is automatically linked but vcpkg turns this feature off.
@@ -29,3 +30,16 @@ endif()
 if(TURN_OFF_DEVIRTUALIZE)
   target_compile_options(app.out PUBLIC -fno-devirtualize)
 endif()
+
+
+#Include path to header files for Custom Op
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib/onnxruntime/include/onnxruntime/)
+
+#Include path to header files for Custom Op Test
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib/onnxruntime/onnxruntime/test/util/include)
+
+#set(ONNXRUNTIME_LIBRARY ${CMAKE_CURRENT_SOURCE_DIR}/../lib/onnxruntime)
+
+#Linking dependencies for Custom Op
+find_library(ONNXRUNTIME_LIBRARY onnxruntime HINTS ${CMAKE_CURRENT_SOURCE_DIR}/../lib/onnxruntime/build/Linux/RelWithDebInfo/)
+target_link_libraries(app.out PUBLIC ${ONNXRUNTIME_LIBRARY})
